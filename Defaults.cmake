@@ -57,3 +57,6 @@ endif()
 
 # Include optimization settings
 include(${CMAKE_CURRENT_LIST_DIR}/Optimizations.cmake)
+
+# Include linker settings
+include(${CMAKE_CURRENT_LIST_DIR}/Linker.cmake)
