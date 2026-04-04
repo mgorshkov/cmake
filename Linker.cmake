@@ -6,7 +6,7 @@ if (ENABLE_CUDA)
 )
 endif()
 
-set(LIBS fmt::fmt)
+set(LIBS ${LIBS} fmt::fmt)
 # Add CUDA dependencies
 if (ENABLE_CUDA)
     set(LIBS ${LIBS} CUDA::cudart CUDA::cublas CUDA::cusolver CUDA::curand )

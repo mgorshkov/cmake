@@ -15,6 +15,7 @@ option(ENABLE_SSE3 "Enable SSE3 optimizations" OFF)
 option(ENABLE_AVX "Enable AVX optimizations" OFF)
 option(ENABLE_AVX2 "Enable AVX2 optimizations" ON)
 option(ENABLE_AVX512 "Enable AVX512 optimizations" OFF)
+option(ENABLE_AMX "Enable AMX (Advanced Matrix Extensions) optimizations" OFF)
 
 # Build shared libraries
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
