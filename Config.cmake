@@ -26,8 +26,11 @@ set(_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})
 # Include options
 include(${_CMAKE_DIR}/Options.cmake)
 
-# Apply default settings
-include(${_CMAKE_DIR}/Defaults.cmake)
+# Apply global settings
+include(${_CMAKE_DIR}/Globals.cmake)
+
+# Include optimization settings
+include(${_CMAKE_DIR}/Optimizations.cmake)
 
 # Clean up
 unset(_CMAKE_DIR)

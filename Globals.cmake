@@ -3,9 +3,6 @@
 # This file implements the common CMake configuration that can be reused
 # across multiple projects. Include this file after setting options.
 
-# Include options first
-include(${CMAKE_CURRENT_LIST_DIR}/Options.cmake)
-
 # C++ 20
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -60,11 +57,3 @@ if (ENABLE_OPENMP)
     endif()
 endif()
 
-# Include optimization settings
-include(${CMAKE_CURRENT_LIST_DIR}/Optimizations.cmake)
-
-# Include compiler settings
-include(${CMAKE_CURRENT_LIST_DIR}/Compiler.cmake)
-
-# Include linker settings
-include(${CMAKE_CURRENT_LIST_DIR}/Linker.cmake)
