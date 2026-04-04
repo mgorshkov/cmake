@@ -50,7 +50,7 @@ endif()
 
 # Set up Open MP
 if (ENABLE_OPENMP)
-    message(STATUS "NP: OpenMP ON")
+    message(STATUS "${PROJECT_NAME}: OpenMP ON")
     find_package(OpenMP)
     if (OPENMP_FOUND)
         set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -62,6 +62,9 @@ endif()
 
 # Include optimization settings
 include(${CMAKE_CURRENT_LIST_DIR}/Optimizations.cmake)
+
+# Include compiler settings
+include(${CMAKE_CURRENT_LIST_DIR}/Compiler.cmake)
 
 # Include linker settings
 include(${CMAKE_CURRENT_LIST_DIR}/Linker.cmake)
