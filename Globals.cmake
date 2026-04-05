@@ -45,7 +45,7 @@ if (ENABLE_CUDA)
     # CUDA specific settings
     set(CMAKE_CUDA_STANDARD 20)
     set(CMAKE_CUDA_ARCHITECTURES 75 80 86) # RTX 20xx/30xx/40xx
-    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -O3 --use_fast_math")
+    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --use_fast_math")
     # Avoid "style of line directive is a GCC" nvcc warnings
     set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-pedantic -Xcompiler -Wno-gnu-line-marker")
     set(CMAKE_CUDA_FLAGS_DEBUG "-G")
