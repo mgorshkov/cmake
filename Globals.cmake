@@ -1,3 +1,25 @@
+# CMake settings for C++ projects
+
+# Copyright (c) 2026 Mikhail Gorshkov (mikhail.gorshkov@gmail.com)
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 # Defaults.cmake - Default CMake settings for C++ projects
 #
 # This file implements the common CMake configuration that can be reused
@@ -5,8 +27,14 @@
 
 # C++ 20
 set(CMAKE_CXX_STANDARD 20)
+
+# If ON: CMake strictly requires the compiler to support the version set in CMAKE_CXX_STANDARD (e.g., 20). If the compiler is too old to support C++20, CMake will generate an error during configuration.
+# If OFF (Default): If the compiler does not support C++20, CMake will "decay" and fall back to the latest standard the compiler does support (e.g., C++17 or C++14) without failing. 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+
+# To get -std=c++20: Set set(CMAKE_CXX_EXTENSIONS OFF). This forces CMake to use the standard-compliant flag.
+# To get -std=gnu++20: Set set(CMAKE_CXX_EXTENSIONS ON) (which is typically the default).
+set(CMAKE_CXX_EXTENSIONS ON)
 
 if (ENABLE_CUDA)
     message(STATUS "${PROJECT_NAME}: CUDA Enabled")
