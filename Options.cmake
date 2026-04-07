@@ -23,7 +23,7 @@
 # Options.cmake - Configuration options for CMake module
 #
 # This file defines the common options that can be set by projects using
-# the NP CMake configuration module.
+# the CMake configuration module.
 
 # Use CUDA GPU optimizations
 option(ENABLE_CUDA "Enable CUDA optimizations" ON)
@@ -41,3 +41,6 @@ option(ENABLE_AMX "Enable AMX (Advanced Matrix Extensions) optimizations" OFF)
 
 # Build shared libraries
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+# Enable debug information
+option(DEBUG_INFO "Enable debug information" OFF)

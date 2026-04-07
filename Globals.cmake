@@ -29,13 +29,25 @@
 set(CMAKE_CXX_STANDARD 20)
 
 # If ON: CMake strictly requires the compiler to support the version set in CMAKE_CXX_STANDARD (e.g., 20). If the compiler is too old to support C++20, CMake will generate an error during configuration.
-# If OFF (Default): If the compiler does not support C++20, CMake will "decay" and fall back to the latest standard the compiler does support (e.g., C++17 or C++14) without failing. 
+# If OFF (Default): If the compiler does not support C++20, CMake will "decay" and fall back to the latest standard the compiler does support (e.g., C++17 or C++14) without failing.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # To get -std=c++20: Set set(CMAKE_CXX_EXTENSIONS OFF). This forces CMake to use the standard-compliant flag.
 # To get -std=gnu++20: Set set(CMAKE_CXX_EXTENSIONS ON) (which is typically the default).
 set(CMAKE_CXX_EXTENSIONS ON)
 
+# Support debug info in stack trace
+if (DEBUG_INFO)
+    if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -rdynamic")
+    endif()
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        add_compile_options(/Zi /Ob0 /Od)
+    endif()
+endif()
+
+# Tune up CUDA optimizations
 if (ENABLE_CUDA)
     message(STATUS "${PROJECT_NAME}: CUDA Enabled")
 
