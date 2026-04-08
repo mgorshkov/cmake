@@ -38,6 +38,8 @@ set(CMAKE_CXX_EXTENSIONS ON)
 
 # Support debug info in stack trace
 if (DEBUG_INFO)
+    message(STATUS "${PROJECT_NAME}: Building with debug info")
+
     if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -rdynamic")
     endif()
