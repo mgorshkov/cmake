@@ -29,7 +29,7 @@
 option(ENABLE_CUDA "Enable CUDA optimizations" ON)
 
 # Use OPENMP
-option(ENABLE_OPENMP "Enable OpenMP" OFF)
+option(ENABLE_OPENMP "Enable OpenMP" ON)
 
 # Set up vector CPU optimizations
 option(ENABLE_SSE2 "Enable SSE2 optimizations" OFF)
