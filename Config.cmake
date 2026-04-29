@@ -24,23 +24,12 @@
 #
 # Include this file in your CMakeLists.txt to apply all default settings.
 #
-# Usage:
-#   include(Config)
-#   Or: include(path/to/Config.cmake)
+# Usage: include(Config) Or: include(path/to/Config.cmake)
 #
-# Options can be set before including this file:
-#   set(ENABLE_CUDA ON)   # Enable CUDA support
-#   set(ENABLE_AVX2 ON)   # Enable AVX2 optimizations
-#   etc.
-# Complete options list:
-# ENABLE_CUDA
-# ENABLE_OPENMP
-# ENABLE_SSE2
-# ENABLE_SSE3
-# ENABLE_AVX
-# ENABLE_AVX2
-# ENABLE_AVX512
-# ENABLE_AMX
+# Options can be set before including this file: set(ENABLE_CUDA ON)   # Enable
+# CUDA support set(ENABLE_AVX2 ON)   # Enable AVX2 optimizations etc. Complete
+# options list: ENABLE_CUDA ENABLE_OPENMP ENABLE_SSE2 ENABLE_SSE3 ENABLE_AVX
+# ENABLE_AVX2 ENABLE_AVX512 ENABLE_AMX
 
 # Set module path
 set(_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})

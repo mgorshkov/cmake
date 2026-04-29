@@ -22,8 +22,8 @@
 
 # Options.cmake - Configuration options for CMake module
 #
-# This file defines the common options that can be set by projects using
-# the CMake configuration module.
+# This file defines the common options that can be set by projects using the
+# CMake configuration module.
 
 # Use CUDA GPU optimizations
 option(ENABLE_CUDA "Enable CUDA optimizations" ON)
