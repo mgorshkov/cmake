@@ -51,7 +51,7 @@ endif()
 
 # Tune up CUDA optimizations
 if (ENABLE_CUDA)
-    message(STATUS "${PROJECT_NAME}: CUDA Enabled")
+    message(STATUS "${PROJECT_NAME}: CUDA ON")
 
     # Enable CUDA language
     enable_language(CUDA)
@@ -68,7 +68,7 @@ if (ENABLE_CUDA)
     find_package(CUDAToolkit REQUIRED)
     add_compile_definitions(USE_CUDA)
 else()
-    message(STATUS "${PROJECT_NAME}: CUDA Disabled")
+    message(STATUS "${PROJECT_NAME}: CUDA OFF")
 endif()
 
 # Default build type is Release
@@ -97,5 +97,7 @@ if (ENABLE_OPENMP)
         set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
         add_compile_definitions(USE_OPENMP)
     endif()
+else()
+    message(STATUS "${PROJECT_NAME}: OpenMP OFF")
 endif()
 
