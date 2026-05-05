@@ -58,22 +58,28 @@ endif()
 if(ENABLE_CUDA)
   message(STATUS "${PROJECT_NAME}: CUDA ON")
 
-  # Enable CUDA language
-  enable_language(CUDA)
+  # Find CUDA toolkit first (non-REQUIRED to allow graceful fallback)
+  find_package(CUDAToolkit QUIET)
 
-  # CUDA specific settings
-  set(CMAKE_CUDA_STANDARD 20)
-  set(CMAKE_CUDA_ARCHITECTURES 75 80 86) # RTX 20xx/30xx/40xx
-  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --use_fast_math")
-  # Avoid "style of line directive is a GCC" nvcc warnings
-  set(CMAKE_CUDA_FLAGS
-      "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-pedantic -Xcompiler -Wno-gnu-line-marker"
-  )
-  set(CMAKE_CUDA_FLAGS_DEBUG "-G")
+  if(NOT CUDAToolkit_FOUND)
+    message(STATUS "${PROJECT_NAME}: CUDA toolkit not found — disabling CUDA")
+    set(ENABLE_CUDA OFF)
+  else()
+    # Enable CUDA language
+    enable_language(CUDA)
 
-  # Find CUDA package
-  find_package(CUDAToolkit REQUIRED)
-  add_compile_definitions(USE_CUDA)
+    # CUDA specific settings
+    set(CMAKE_CUDA_STANDARD 20)
+    set(CMAKE_CUDA_ARCHITECTURES 75 80 86) # RTX 20xx/30xx/40xx
+    set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --use_fast_math")
+    # Avoid "style of line directive is a GCC" nvcc warnings
+    set(CMAKE_CUDA_FLAGS
+        "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-pedantic -Xcompiler -Wno-gnu-line-marker"
+    )
+    set(CMAKE_CUDA_FLAGS_DEBUG "-G")
+
+    add_compile_definitions(USE_CUDA)
+  endif()
 else()
   message(STATUS "${PROJECT_NAME}: CUDA OFF")
 endif()
