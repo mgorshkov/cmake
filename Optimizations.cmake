@@ -120,10 +120,9 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
     message(STATUS "${PROJECT_NAME}: AMX ON")
     if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES
                                                "Clang")
-      add_compile_options(-ftree-vectorize -mamx-tile -mamx-int8 -mamx-bf16
-                          -mamx-fp16)
+      add_compile_options(-ftree-vectorize -mamx-tile -mamx-int8 -mamx-bf16)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-      add_compile_options(-mamx-tile -mamx-int8 -mamx-bf16 -mamx-fp16)
+      add_compile_options(-mamx-tile -mamx-int8 -mamx-bf16)
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
       # MSVC does not yet support AMX flags; use AVX512 as fallback
       add_compile_options(/arch:AVX512)
