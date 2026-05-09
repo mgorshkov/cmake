@@ -25,23 +25,32 @@
 # This file defines the common options that can be set by projects using the
 # CMake configuration module.
 
+# Helper macro: define an option only if not already set by the including project.
+# This allows projects to use plain set(VAR value) before including Config.cmake
+# and have it take effect, while still providing a default via option() otherwise.
+macro(project_option var desc default)
+    if(NOT DEFINED ${var})
+        option(${var} "${desc}" ${default})
+    endif()
+endmacro()
+
 # Use CUDA GPU optimizations
-option(ENABLE_CUDA "Enable CUDA optimizations" ON)
+project_option(ENABLE_CUDA "Enable CUDA optimizations" ON)
 
 # Use OPENMP
-option(ENABLE_OPENMP "Enable OpenMP" ON)
+project_option(ENABLE_OPENMP "Enable OpenMP" ON)
 
 # Set up vector CPU optimizations
-# Turn on optimizations for most popular architectures
-option(ENABLE_SSE2 "Enable SSE2 optimizations" OFF)
-option(ENABLE_SSE3 "Enable SSE3 optimizations" OFF)
-option(ENABLE_AVX "Enable AVX optimizations" OFF)
-option(ENABLE_AVX2 "Enable AVX2 optimizations" ON)
-option(ENABLE_AVX512 "Enable AVX512 optimizations" ON)
-option(ENABLE_AMX "Enable AMX (Advanced Matrix Extensions) optimizations" OFF)
+# Turn on basic compiler optimizations
+project_option(ENABLE_SSE2 "Enable SSE2 optimizations" OFF)
+project_option(ENABLE_SSE3 "Enable SSE3 optimizations" OFF)
+project_option(ENABLE_AVX "Enable AVX optimizations" OFF)
+project_option(ENABLE_AVX2 "Enable AVX2 optimizations" OFF)
+project_option(ENABLE_AVX512 "Enable AVX512 optimizations" ON)
+project_option(ENABLE_AMX "Enable AMX (Advanced Matrix Extensions) optimizations" OFF)
 
 # Build shared libraries
-option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+project_option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 # Enable debug information
-option(DEBUG_INFO "Enable debug information" OFF)
+project_option(DEBUG_INFO "Enable debug information" OFF)
