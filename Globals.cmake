@@ -25,6 +25,24 @@
 # This file implements the common CMake configuration that can be reused across
 # multiple projects. Include this file after setting options.
 
+# Minimum compiler version check: GCC >= 13, Clang >= 14, MSVC >= 19.29
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13)
+        message(FATAL_ERROR "${PROJECT_NAME}: GCC version ${CMAKE_CXX_COMPILER_VERSION} is too old. "
+                            "Minimum required version is 13.")
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14)
+        message(FATAL_ERROR "${PROJECT_NAME}: ${CMAKE_CXX_COMPILER_ID} version ${CMAKE_CXX_COMPILER_VERSION} is too old. "
+                            "Minimum required version is 14.")
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.29)
+        message(FATAL_ERROR "${PROJECT_NAME}: MSVC version ${CMAKE_CXX_COMPILER_VERSION} is too old. "
+                            "Minimum required version is 19.29 (Visual Studio 2019 16.10).")
+    endif()
+endif()
+
 # C++ 20
 set(CMAKE_CXX_STANDARD 20)
 
@@ -67,6 +85,12 @@ if(ENABLE_CUDA)
   else()
     # Enable CUDA language
     enable_language(CUDA)
+
+    # Minimum NVCC version check: >= 12
+    if(CMAKE_CUDA_COMPILER_VERSION VERSION_LESS 12)
+      message(FATAL_ERROR "${PROJECT_NAME}: NVCC version ${CMAKE_CUDA_COMPILER_VERSION} is too old. "
+                          "Minimum required version is 12.")
+    endif()
 
     # CUDA specific settings
     set(CMAKE_CUDA_STANDARD 20)
