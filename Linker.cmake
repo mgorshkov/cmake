@@ -22,7 +22,6 @@
 
 # Linker.cmake - Linker CMake settings for C++ projects
 
-set(LIBS ${LIBS} fmt::fmt)
 # Add CUDA dependencies and target properties
 if(ENABLE_CUDA)
   set_target_properties(
