@@ -25,13 +25,12 @@
 # This file defines the common options that can be set by projects using the
 # CMake configuration module.
 
-# Helper macro: define an option only if not already set by the including project.
-# This allows projects to use plain set(VAR value) before including Config.cmake
-# and have it take effect, while still providing a default via option() otherwise.
+# Helper macro: define an option with a default that always takes effect.
+# Uses set(... CACHE BOOL ... FORCE) to ensure the value is written to the cache
+# regardless of whether the project called option() first.
+# Projects can still override by passing -DVAR=value on the command line.
 macro(project_option var desc default)
-    if(NOT DEFINED ${var})
-        option(${var} "${desc}" ${default})
-    endif()
+    set(${var} ${default} CACHE BOOL "${desc}" FORCE)
 endmacro()
 
 # Use CUDA GPU optimizations
