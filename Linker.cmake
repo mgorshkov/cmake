@@ -21,15 +21,18 @@
 # SOFTWARE.
 
 # Linker.cmake - Linker CMake settings for C++ projects
+#
+# Note: TARGET_NAME must be set before including this file.
+# Defaults to ${PROJECT_NAME} when included via Target.cmake.
 
 # Add CUDA dependencies and target properties
 if(ENABLE_CUDA)
   set_target_properties(
-    ${PROJECT_NAME} PROPERTIES CUDA_RUNTIME_LIBRARY Shared
+    ${TARGET_NAME} PROPERTIES CUDA_RUNTIME_LIBRARY Shared
                                CUDA_ARCHITECTURES "${CMAKE_CUDA_ARCHITECTURES}")
 
   set(LIBS ${LIBS} CUDA::cudart CUDA::cublas CUDA::cusolver CUDA::curand)
 endif()
 
 # Add link libraries
-target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBS})
+target_link_libraries(${TARGET_NAME} PUBLIC ${LIBS})

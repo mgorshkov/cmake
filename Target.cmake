@@ -24,7 +24,19 @@
 #
 # Include this file in your CMakeLists.txt to apply target-dependent settings.
 #
-# Usage: include(Config) Or: include(path/to/Config.cmake)
+# Usage:
+#   # After creating your target (add_library / add_executable):
+#   include(path/to/Target.cmake)
+#
+# By default, settings are applied to ${PROJECT_NAME}. To target a different
+# target, set TARGET_NAME before including:
+#   set(TARGET_NAME my_custom_target)
+#   include(path/to/Target.cmake)
+
+# Determine which target to configure
+if(NOT TARGET_NAME)
+    set(TARGET_NAME ${PROJECT_NAME})
+endif()
 
 # Set module path
 set(_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})
@@ -32,8 +44,14 @@ set(_CMAKE_DIR ${CMAKE_CURRENT_LIST_DIR})
 # Compiler options
 include(${_CMAKE_DIR}/Compiler.cmake)
 
+# CUDA compile definition (PUBLIC so it propagates to consumers via target_link_libraries)
+if(ENABLE_CUDA)
+    target_compile_definitions(${TARGET_NAME} PUBLIC USE_CUDA)
+endif()
+
 # Linker options
 include(${_CMAKE_DIR}/Linker.cmake)
 
 # Clean up
 unset(_CMAKE_DIR)
+unset(TARGET_NAME)

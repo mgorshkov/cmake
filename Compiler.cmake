@@ -21,6 +21,9 @@
 # SOFTWARE.
 
 # Compiler.cmake - Compiler CMake settings for C++ projects
+#
+# Note: TARGET_NAME must be set before including this file.
+# Defaults to ${PROJECT_NAME} when included via Target.cmake.
 
 # Add compile features
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_compile_features(${TARGET_NAME} PUBLIC cxx_std_20)
