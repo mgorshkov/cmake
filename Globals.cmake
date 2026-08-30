@@ -96,10 +96,17 @@ if(ENABLE_CUDA)
     set(CMAKE_CUDA_STANDARD 20)
     set(CMAKE_CUDA_ARCHITECTURES 75 80 86) # RTX 20xx/30xx/40xx
     set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} --use_fast_math")
-    # Avoid "style of line directive is a GCC" nvcc warnings
+    # Avoid "style of line directive is a GCC" nvcc warnings, and suppress the
+    # GCC-only -Wno-gnu-line-marker warning option when the host compiler is not
+    # GCC (Clang/MSVC would print "unrecognized command-line option").
     set(CMAKE_CUDA_FLAGS
-        "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-pedantic -Xcompiler -Wno-gnu-line-marker"
+        "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-pedantic"
     )
+    if(CMAKE_CUDA_HOST_COMPILER_ID STREQUAL "GNU")
+        set(CMAKE_CUDA_FLAGS
+            "${CMAKE_CUDA_FLAGS} -Xcompiler -Wno-gnu-line-marker"
+        )
+    endif()
     set(CMAKE_CUDA_FLAGS_DEBUG "-G")
 
     add_compile_definitions(USE_CUDA)
