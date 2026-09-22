@@ -46,6 +46,15 @@ project_option(ENABLE_SSE3 "Enable SSE3 optimizations" OFF)
 project_option(ENABLE_AVX "Enable AVX optimizations" OFF)
 project_option(ENABLE_AVX2 "Enable AVX2 optimizations" OFF)
 project_option(ENABLE_AVX512 "Enable AVX512 optimizations" ON)
+# AVX-512 sub-features. ENABLE_AVX512 alone enables only the base set
+# (F/DQ/BW/VL) so the library runs on any AVX-512 CPU (e.g. Cascade Lake).
+# VBMI/VBMI2 are instruction-set extensions NOT present on Cascade Lake
+# (they are Ice Lake+) and used by the compiler's auto-vectorizer for
+# byte-granular permutes, so they are separate opt-in options. Enabling
+# them without runtime dispatch support will crash with SIGILL on older
+# AVX-512 CPUs.
+project_option(ENABLE_AVX512_VBMI "Enable AVX512-VBMI (byte permutes; Ice Lake+) optimizations" OFF)
+project_option(ENABLE_AVX512_VBMI2 "Enable AVX512-VBMI2 (byte compress/expand; Ice Lake+) optimizations" OFF)
 project_option(ENABLE_AMX "Enable AMX (Advanced Matrix Extensions) optimizations" OFF)
 
 # Build shared libraries

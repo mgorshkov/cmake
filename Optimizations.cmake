@@ -95,17 +95,13 @@ if(ENABLE_AVX512)
   message(STATUS "${PROJECT_NAME}: AVX512 ON")
   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES
                                              "Clang")
-    add_compile_options(
-      -ftree-vectorize
-      -mavx512f
-      -mavx512dq
-      -mavx512bw
-      -mavx512vbmi
-      -mavx512vbmi2
-      -mavx512vl)
+    # Base AVX-512 set (F/DQ/BW/VL) — runs on all AVX-512 CPUs, including
+    # Cascade Lake. VBMI/VBMI2 are opt-in sub-features below because they
+    # are Ice Lake+ only (Cascade Lake lacks them and would SIGILL).
+    add_compile_options(-ftree-vectorize -mavx512f -mavx512dq -mavx512bw
+                        -mavx512vl)
   elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-    add_compile_options(-mavx512f -mavx512dq -mavx512bw -mavx512vbmi
-                        -mavx512vbmi2 -mavx512vl)
+    add_compile_options(-mavx512f -mavx512dq -mavx512bw -mavx512vl)
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/arch:AVX512)
   else()
@@ -113,6 +109,38 @@ if(ENABLE_AVX512)
   endif()
 else()
   message(STATUS "${PROJECT_NAME}: AVX512 OFF")
+endif()
+if(ENABLE_AVX512_VBMI)
+  add_compile_definitions(ENABLE_AVX512_VBMI)
+  message(STATUS "${PROJECT_NAME}: AVX512-VBMI ON")
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                             "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                             "Intel")
+    add_compile_options(-mavx512vbmi)
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # MSVC has no separate VBMI switch; /arch:AVX512 covers the base set.
+    message(STATUS "${PROJECT_NAME}: AVX512-VBMI not separately available for MSVC")
+  else()
+    message(STATUS "${PROJECT_NAME}: Unknown compiler")
+  endif()
+else()
+  message(STATUS "${PROJECT_NAME}: AVX512-VBMI OFF")
+endif()
+if(ENABLE_AVX512_VBMI2)
+  add_compile_definitions(ENABLE_AVX512_VBMI2)
+  message(STATUS "${PROJECT_NAME}: AVX512-VBMI2 ON")
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                             "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES
+                                             "Intel")
+    add_compile_options(-mavx512vbmi2)
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # MSVC has no separate VBMI2 switch; /arch:AVX512 covers the base set.
+    message(STATUS "${PROJECT_NAME}: AVX512-VBMI2 not separately available for MSVC")
+  else()
+    message(STATUS "${PROJECT_NAME}: Unknown compiler")
+  endif()
+else()
+  message(STATUS "${PROJECT_NAME}: AVX512-VBMI2 OFF")
 endif()
 if(ENABLE_AMX)
   add_compile_definitions(ENABLE_AMX)
