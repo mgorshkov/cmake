@@ -44,8 +44,8 @@ project_option(ENABLE_OPENMP "Enable OpenMP" ON)
 project_option(ENABLE_SSE2 "Enable SSE2 optimizations" OFF)
 project_option(ENABLE_SSE3 "Enable SSE3 optimizations" OFF)
 project_option(ENABLE_AVX "Enable AVX optimizations" OFF)
-project_option(ENABLE_AVX2 "Enable AVX2 optimizations" OFF)
-project_option(ENABLE_AVX512 "Enable AVX512 optimizations" ON)
+project_option(ENABLE_AVX2 "Enable AVX2 optimizations" ON)
+project_option(ENABLE_AVX512 "Enable AVX512 optimizations" OFF)
 # AVX-512 sub-features. ENABLE_AVX512 alone enables only the base set
 # (F/DQ/BW/VL) so the library runs on any AVX-512 CPU (e.g. Cascade Lake).
 # VBMI/VBMI2 are instruction-set extensions NOT present on Cascade Lake
